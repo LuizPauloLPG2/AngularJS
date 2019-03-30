@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="application">
+  <head>
+    <meta charset="utf-8">
+    <title>application angularJS</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+  </head>
+  <body ng-controller="applicationController">
+    <br>
+    <br>
+    <br>
+    <div class="container col-md-6 border col-md-6">
+      <div class="container text-center">
+        <h1>{{message}}</h1>
+      </div>
+      <div class="container">
+        <div class="container text-center">
+          <!-- <h3>{{title}}</h3> -->
+          <input class="form-control form-control-sm mb-2" placeholder="Search" type="text" ng-model="searchPerson">
+        </div>
+        <table ng-show="people.length > 0" class="table table-sm">
+          <thead>
+            <th></th>
+            <th>NOME</th>
+            <th>E-MAIL</th>
+            <th>AGE</th>
+            <!-- <th>LANGUAGE</th> -->
+            <!-- <th></th> -->
+          </thead>
+          <tbody>
+            <!-- {{people}} -->
+            <!-- Array -->
+            <!-- <tr ng-class="[classe1, classe2]" class="selected" ng-repeat="person in people"> -->
+            <!-- <tr ng-class="classe" class="selected" ng-repeat="person in people"> -->
+            <tr ng-class="{selected: person.selected}" ng-repeat="person in people | filter:searchPerson">
+              <td><input type="checkbox" ng-model="person.selected"></td>
+              <td>{{person.name}}</td>
+              <td>{{person.email}}</td>
+              <td>{{person.age}}</td>
+              <!-- <td>{{person.language.name}}</td> -->
+              <!-- <td><div class="td-square" ng-style="{'background-color': person.color}"></div></td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <div class="container">
+        <!-- {{person}} -->
+        <div class="container">
+          <form name="frmPerson">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input class="form-control form-control-sm" ng-model="person.name" type="text" placeholder="NAME" ng-required="true">
+              </div>
+              <div class="form-group col-md-12">
+                <input class="form-control form-control-sm" ng-model="person.email" type="email" placeholder="E-MAIL" ng-required="true">
+              </div>
+              <div class="form-group col-md-12">
+                <input class="form-control form-control-sm" ng-model="person.age" type="number" placeholder="AGE" ng-required="true">
+              </div>
+              <div class="form-group col-md-12">
+                <!-- <select class="form-control" ng-model="person.language" ng-options="language.type as language.name for language in languages"> -->
+                <!-- <select class="form-control" ng-model="person.language" ng-options="language.name group by language.type for language in languages"> -->
+                <!-- <select class="form-control form-control-sm" ng-model="person.language" ng-options="language.name for language in languages">
+                  <option value="">Select a language...</option>
+                </select> -->
+              </div>
+              <div class="form-group col-md-12">
+                <button type="button" ng-click="addPerson(person);" ng-disabled="frmPerson.$invalid" class="btn btn-block btn-primary" name="button">ADD</button>
+                <button type="button" ng-click="delPerson(people);" class="btn btn-block btn-danger" name="button" ng-if="isPersonSelected(people);">DELETE</button>
+              </div>
+            </div>
+          </form>  
+        </div>
+      </div>
+      <div class="container" ng-include="'includes/footer.html'">
+        2019 &copy; 
+      </div> 
+    </div>
+
+    <script src="lib/angular/angular.js" charset="utf-8"></script>
+    <script src="js/index.js" charset="utf-8"></script>
+  </body>
+</html>
